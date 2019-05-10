@@ -36,9 +36,9 @@ jobs:
             fi
 
             # Install DMSA requirements
-            pip install -r ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy/requirements.txt
-            python ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy/setup.py install
-            pip install docker-py
+            pip install --user -r ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy/requirements.txt
+            python ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy/setup.py install --user
+            pip install --user docker-py
 
             # Load DMSA image
             if [[ -e ~/docker/dmsa.tar ]]; then
