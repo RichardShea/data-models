@@ -3,6 +3,9 @@ jobs:
   build:
     docker:
       - image: circleci/python:2.7
+      
+      - setup_remote_docker:
+          version: 17.06.2-ce
 
         environment:
           # Make CircleCI specific environment variables more generic.
