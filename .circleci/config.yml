@@ -72,25 +72,25 @@ jobs:
             fi
 
             # Simple verification of DMS
-            #curl -s http://127.0.0.1:8123/?format=json | grep --silent 'Data Models Service' || (docker logs dms; false)
+            curl -s http://127.0.0.1:8123/?format=json | grep --silent 'Data Models Service' || (docker logs dms; false)
 
             # Run the dmsa container locally.
-            #docker run -d -p "5000:80" --name dmsa --link dms:dms "dbhi/data-models-sqlalchemy:${DMSA_TEST_BRANCH/master/latest}" gunicorn --bind="0.0.0.0:80" --workers=4 'dmsa.service:build_app("http://dms:8123/")'; sleep 10
+            docker run -d -p "5000:80" --name dmsa --link dms:dms "dbhi/data-models-sqlalchemy:$DMSA_TEST_BRANCH/master/latest" gunicorn --bind="0.0.0.0:80" --workers=4 'dmsa.service:build_app("http://dms:8123/")'; sleep 10
 
             # Simple verification of DMSA
-            #curl -s http://127.0.0.1:5000/ | grep --silent 'Data Models DDL and ERDs' || (docker logs dmsa; false)
+            curl -s http://127.0.0.1:5000/ | grep --silent 'Data Models DDL and ERDs' || (docker logs dmsa; false)
 
             # Integration testing of the running container service.
-            #cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy; nosetests dmsa.tests.container_integration
+            cd $CIRCLE_WORKING_DIRECTORY/data-models-sqlalchemy; nosetests dmsa.tests.container_integration
 
             # Save DDL to artifact directory.
-            #mkdir -p "${ARTIFACT_DIR}/ddl"
-            #cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy; python dmsa/tests/output_all_ddl.py "${ARTIFACT_DIR}/ddl/dms_${VERSION//\//_}_all_ddl.sql"
+            mkdir -p "$ARTIFACT_DIR/ddl"
+            cd $CIRCLE_WORKING_DIRECTORY/data-models-sqlalchemy; python dmsa/tests/output_all_ddl.py "$ARTIFACT_DI/ddl/dms_$VERSION//\//__all_ddl.sql"
 
             # Save DMS and DMSA logs to artifact directory.
-            #mkdir -p "${ARTIFACT_DIR}/log"
-            #docker logs dms > "${ARTIFACT_DIR}/log/dms.log" 2>&1
-            #docker logs dmsa > "${ARTIFACT_DIR}/log/dmsa.log" 2>&1
+            mkdir -p "$ARTIFACT_DIR/log"
+            docker logs dms > "$ARTIFACT_DIR/log/dms.log" 2>&1
+            docker logs dmsa > "$ARTIFACT_DIR/log/dmsa.log" 2>&1
 
       - store_test_results:
           path: "$ARTIFACT_DIR/log"
