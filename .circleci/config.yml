@@ -22,8 +22,7 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 17.06.2-ce 
+      - setup_remote_docker
       - run:
           name: Dependencies
           command: |
