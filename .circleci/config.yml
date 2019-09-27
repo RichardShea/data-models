@@ -45,7 +45,7 @@ jobs:
             if [[ -e ~/docker/dmsa.tar ]]; then
               docker load --input ~/docker/dmsa.tar
             fi
-            docker pull "dbhi/data-models-sqlalchemy:master/master/latest"
+            docker pull "dbhi/data-models-sqlalchemy:master"
 
             # Load DMS image
             if [[ -e ~/docker/dms.tar ]]; then
@@ -55,7 +55,7 @@ jobs:
 
             # Save DMSA and DMS images for next build
             mkdir -p ~/docker
-            docker save "dbhi/data-models-sqlalchemy:master/master/latest" > ~/docker/dmsa.tar
+            docker save "dbhi/data-models-sqlalchemy:master" > ~/docker/dmsa.tar
             docker save dbhi/data-models > ~/docker/dms.tar
 
       - run:
