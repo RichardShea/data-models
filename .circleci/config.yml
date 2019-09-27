@@ -27,7 +27,7 @@ jobs:
           name: Dependencies
           command: |
             # Clone DMSA
-            git clone --branch "master" https://github.com/chop-dbhi/data-models-sqlalchemy.git ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy
+            git clone --branch ${DMSA_TEST_BRANCH} https://github.com/chop-dbhi/data-models-sqlalchemy.git ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy
 
             # Install jq
             mkdir -p ~/bin
@@ -45,7 +45,7 @@ jobs:
             if [[ -e ~/docker/dmsa.tar ]]; then
               docker load --input ~/docker/dmsa.tar
             fi
-            docker pull "dbhi/data-models-sqlalchemy:master"
+            docker pull "dbhi/data-models-sqlalchemy:${DMSA_TEST_BRANCH/master/latest}"
 
             # Load DMS image
             if [[ -e ~/docker/dms.tar ]]; then
@@ -55,8 +55,9 @@ jobs:
 
             # Save DMSA and DMS images for next build
             mkdir -p ~/docker
-            docker save "dbhi/data-models-sqlalchemy:master" > ~/docker/dmsa.tar
+            docker save "dbhi/data-models-sqlalchemy:${DMSA_TEST_BRANCH/master/latest}" > ~/docker/dmsa.tar
             docker save dbhi/data-models > ~/docker/dms.tar
+
 
       - run:
           name: Test
@@ -74,7 +75,7 @@ jobs:
             #curl -s http://127.0.0.1:8123/?format=json | grep --silent 'Data Models Service' || (docker logs dms; false)
 
             # Run the dmsa container locally.
-            docker run -d -p "5000:80" --name dmsa --link dms:dms "dbhi/data-models-sqlalchemy:master/master/latest}" gunicorn --bind="0.0.0.0:80" --workers=4 'dmsa.service:build_app("http://dms:8123/")'; sleep 10
+           #docker run -d -p "5000:80" --name dmsa --link dms:dms "dbhi/data-models-sqlalchemy:master/master/latest}" gunicorn --bind="0.0.0.0:80" --workers=4 'dmsa.service:build_app("http://dms:8123/")'; sleep 10
 
             # Simple verification of DMSA
             #curl -s http://127.0.0.1:5000/ | grep --silent 'Data Models DDL and ERDs' || (docker logs dmsa; false)
