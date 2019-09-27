@@ -27,7 +27,7 @@ jobs:
           name: Dependencies
           command: |
             # Clone DMSA
-            git clone --branch ${DMSA_TEST_BRANCH} https://github.com/chop-dbhi/data-models-sqlalchemy.git ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy
+            git clone --branch "master" https://github.com/chop-dbhi/data-models-sqlalchemy.git ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy
 
             # Install jq
             mkdir -p ~/bin
