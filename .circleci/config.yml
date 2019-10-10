@@ -92,21 +92,21 @@ jobs:
             ls -la
 
             # Save DDL to artifact directory.
-            mkdir -p "${ARTIFACT_DIR}/ddl"
+            mkdir -p ddl
             #cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy; python dmsa/tests/output_all_ddl.py "${ARTIFACT_DIR}/ddl/dms_${VERSION//\//_}_all_ddl.sql"
             
             ls -la
             
             # Save DMS and DMSA logs to artifact directory.
-            mkdir -p "${ARTIFACT_DIR}/log"
+            mkdir -p log
             #docker logs dms > "${ARTIFACT_DIR}/log/dms.log" 2>&1
             #docker logs dmsa > "${ARTIFACT_DIR}/log/dmsa.log" 2>&1
             
               ls -la
 
       - store_test_results:
-          path: ${ARTIFACT_DIR}/log
+          path: log
 
       - store_artifacts:
-          path: ${ARTIFACT_DIR}/log
+          path: log
           destination: tr1
