@@ -95,7 +95,7 @@ jobs:
             mkdir -p ddl
             cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy; 
             
-            ls -la
+            ls -la dmsa/tests
             
             #python dmsa/tests/output_all_ddl.py "ddl/dms_${VERSION//\//_}_all_ddl.sql"
             
