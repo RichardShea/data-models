@@ -81,7 +81,7 @@ jobs:
             docker run -d -p "5000:80" --name dmsa --link dms:dms "dbhi/data-models-sqlalchemy:latest" gunicorn --bind="0.0.0.0:80" --workers=4 'dmsa.service:build_app("http://dms:8123/")' && sleep 10
 
             # Integration testing of the running container service.
-            cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy;
+            cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy; python dmsa/tests/container_integration.py
             
             pwd
             ls -la
@@ -98,8 +98,8 @@ jobs:
             #docker logs dmsa > "${ARTIFACT_DIR}/log/dmsa.log" 2>&1
 
       - store_test_results:
-          path: "$ARTIFACT_DIR/log"
+          path: $ARTIFACT_DIR/log
 
       - store_artifacts:
-          path: "$ARTIFACT_DIR/log"
+          path: $ARTIFACT_DIR/log
           destination: tr1
