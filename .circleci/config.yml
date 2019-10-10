@@ -83,6 +83,10 @@ jobs:
             # Integration testing of the running container service.
             cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy;
             
+            pip uninstall nose
+
+            sudo easy_install nose
+            
             nosetests dmsa.tests.container_integration;
 
             # Save DDL to artifact directory.
