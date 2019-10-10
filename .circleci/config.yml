@@ -74,7 +74,7 @@ jobs:
             docker ps
              
             # Simple verification of DMS
-            curl http://127.0.0.1:80/?format=json | grep --silent 'Data Models Service' || (docker logs dms; false) 
+            curl -s http://127.0.0.1:8123/?format=json | grep --silent 'Data Models Service' || (docker logs dms; false) 
 
             echo ${DMSA_TEST_BRANCH}
             pwd
