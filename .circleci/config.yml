@@ -97,7 +97,7 @@ jobs:
             
             ls -la dmsa/tests
             
-            #python dmsa/tests/output_all_ddl.py "ddl/dms_${VERSION//\//_}_all_ddl.sql"
+            python dmsa/tests/output_all_ddl.py #"ddl/dms_${VERSION//\//_}_all_ddl.sql"
             
             
             # Save DMS and DMSA logs to artifact directory.
