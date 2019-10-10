@@ -87,7 +87,7 @@ jobs:
 
             sudo easy_install nose
             
-            #nosetests dmsa/tests/container_integration.py:test_container_endpoints;
+            nosetests dmsa/tests/container_integration.py;
 
             # Save DDL to artifact directory.
             #mkdir -p "${ARTIFACT_DIR}/ddl"
