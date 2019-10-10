@@ -93,9 +93,12 @@ jobs:
 
             # Save DDL to artifact directory.
             mkdir -p ddl
-            cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy; python dmsa/tests/output_all_ddl.py "ddl/dms_${VERSION//\//_}_all_ddl.sql"
+            cd ${CIRCLE_WORKING_DIRECTORY}/data-models-sqlalchemy; 
             
-            ls -la
+            ls-la
+            
+            #python dmsa/tests/output_all_ddl.py "ddl/dms_${VERSION//\//_}_all_ddl.sql"
+            
             
             # Save DMS and DMSA logs to artifact directory.
             mkdir -p log
